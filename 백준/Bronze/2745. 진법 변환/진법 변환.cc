@@ -1,8 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
-#include <cmath>
-#include <unordered_map>
 using namespace std;
 
 int main()
@@ -14,20 +11,14 @@ int main()
 	int b;
 	cin >> n >> b;
 
-	int res = 0;
-	for (int i = 0; i < n.size(); i++)
-	{
-		int index = n.size() - 1 - i;
-		int num = 0; // string타입 문자를 int타입으로 변환했을 때 저장할 변수
+	int res = 0, base = 1;
 
-		// 아스키코드를 숫자로 변환
-		// '0' == 48, 'A' == 65, 'a' == 97
-		if (n[index] <= '9') 
-			num = n[index] - '0'; 
-		else 
-			num = n[index] - 'A' + 10; // 11진법부터 10 == A
-		
-		res += (int)pow(b, i) * num;
+	// 문자열 n을 역순으로 처리
+	for (int i = n.size() - 1; i >= 0; --i)
+	{
+		int num = isdigit(n[i]) ? (n[i] - '0') : (n[i] - 'A' + 10);
+		res += num * base;
+		base *= b;
 	}
 
 	cout << res;
